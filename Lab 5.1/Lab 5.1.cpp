@@ -2,16 +2,18 @@
 //
 
 
-#include <iostream>
 #include <algorithm>
 #include"Triangle.h"
-using namespace std;
+#include<vector>
+
 
 template <typename T>
 void Sort(T* a, size_t size) 
 { 
     sort(a, a + size);
 }
+
+struct Person { string name; int age; };
 
 int main()
 {
@@ -40,7 +42,7 @@ int main()
     {
         cout << str << " ";
     }
-    cout << std::endl;*/
+    cout << std::endl;
 
     int s1 = 9, s2 = 40, s3 = 6;
     try
@@ -48,8 +50,26 @@ int main()
         Triangle t(s1, s2, s3);
         cout << t.Area() << endl;
     }
-    catch (const string& e) { cout << e << endl; }
+    catch (const string& e) { cout << e << endl; }*/
 
+    vector<Person> people = { {"Michal", 20}, {"Ann", 7}, {"Bob", 19}, {"Molly", 30}, {"Jett", 16} };
+    auto filter 
+    { []( vector<Person>& input) 
+        {
+        vector<Person> res;
+        for (const Person& person : input) {
+            if (person.age > 18) {
+                res.push_back(person);
+            }
+        }
+        return res;
+        } 
+    };
+
+    auto Adults = filter(people);
+    for (const Person& person : Adults) {
+        cout << "Name: " << person.name << ", Age: " << person.age << endl;
+    }
     return 0;
 }
 
