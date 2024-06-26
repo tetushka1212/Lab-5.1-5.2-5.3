@@ -7,6 +7,10 @@
 #include <vector>
 #include "Employee.h"
 #include "Array.h"
+#include <set>
+#include <string>
+#include <sstream>
+
 
 
 template <typename T>
@@ -15,6 +19,41 @@ void Sort(T* a, size_t size)
     sort(a, a + size);
 }
 
+set<string> CountUniqueWords(const string& text) {
+    set<string> unique_words;
+    string word;
+    istringstream iss(text);
+    while (iss >> word) {
+        for (char& c : word) {
+            if (ispunct(c)) {
+                c = ' ';
+            }
+            else {
+                c =tolower(c);
+            }
+        }
+        unique_words.insert(word);
+    }
+
+    return unique_words;
+}
+
+class IsPrime {
+public:
+    bool operator()(int n) const {
+        if (n <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= sqrt(n); ++i) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
 
 
 
@@ -74,6 +113,7 @@ int main()
         cout << "Name: " << person.name << ", Age: " << person.age << endl; // 5.3 (Person.h)
     }
 
+
     vector<Employee> employees = { {"Bob", 25, 35000}, {"Jett", 30, 45000},
                                         {"Rick", 28, 40000}, {"Morty", 33, 50000} };
 
@@ -96,7 +136,22 @@ int main()
     arr[2] = "10";
     cout << arr << endl;
     Array<string> coppied_arr = arr;
-    cout << arr; //5.5 (Array.h)*/
+    cout << arr; //5.5 (Array.h)
+
+
+    string text = "Get, propeller, prop, get, more";
+    auto unique_words = CountUniqueWords(text);
+    cout << unique_words.size();//5.6 
+
+    vector<int> numbers = { 2, 3, 37, 5, 6, 7, 8, 9, 10, 11 };
+
+    int countPrimes = count_if(numbers.begin(), numbers.end(), IsPrime());
+
+    cout << "Amount of prime numbers: " << countPrimes << endl; //5.7  */
+
+
+
+
 
     return 0;
 }
