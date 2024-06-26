@@ -3,8 +3,10 @@
 
 
 #include <algorithm>
-#include"Triangle.h"
-#include<vector>
+#include "Triangle.h"
+#include <vector>
+#include "Employee.h"
+#include "Array.h"
 
 
 template <typename T>
@@ -13,24 +15,8 @@ void Sort(T* a, size_t size)
     sort(a, a + size);
 }
 
-class Person
-{
-public:
-    Person(string name, int age);
-    ~Person();
-    string name;
-    int age;
-};
 
-Person::Person(string name, int age)
-{
-    this->age = age;
-    this->name = name;
-}
 
-Person::~Person()
-{
-} 
 
 int main()
 {
@@ -59,7 +45,7 @@ int main()
     {
         cout << str << " ";
     }
-    cout << std::endl;
+    cout << std::endl; // 5.1
 
     int s1 = 9, s2 = 40, s3 = 6;
     try
@@ -67,9 +53,9 @@ int main()
         Triangle t(s1, s2, s3);
         cout << t.Area() << endl;
     }
-    catch (const string& e) { cout << e << endl; }*/
+    catch (const string& e) { cout << e << endl; } // 5.2 (Triangle.h)
 
-    vector<Person> people { {"Michal", 20}, {"Ann", 7}, {"Bob", 19}, {"Molly", 30}, {"Jett", 16} };
+    vector<Person> people{ {"Michal", 20 }, { "Ann", 7 }, { "Bob", 19 }, { "Molly", 30 }, { "Jett", 16 } };
     auto filter 
     { []( vector<Person>& input) 
         {
@@ -85,8 +71,33 @@ int main()
 
     auto Adults = filter(people);
     for (const Person& person : Adults) {
-        cout << "Name: " << person.name << ", Age: " << person.age << endl;
+        cout << "Name: " << person.name << ", Age: " << person.age << endl; // 5.3 (Person.h)
     }
+
+    vector<Employee> employees = { {"Bob", 25, 35000}, {"Jett", 30, 45000},
+                                        {"Rick", 28, 40000}, {"Morty", 33, 50000} };
+
+    int minSalary = 39000;
+
+    auto FilterBySalary = [minSalary](const vector<Employee>& vec)
+        {
+            vector<Employee> result;
+            copy_if(vec.begin(), vec.end(), back_inserter(result), [minSalary](const Employee& emp)
+                {
+                    return emp.salary > minSalary;
+                });
+            return result;
+        };
+    for (const auto& emp : FilterBySalary(employees))
+    {
+        cout << "Name: " << emp.name << ", Age: " << emp.age << ", Salary: " << emp.salary << endl; } //5.4 (Employee.h) 
+    Array<string> arr(3, "qwqw");
+    cout << arr << endl;
+    arr[2] = "10";
+    cout << arr << endl;
+    Array<string> coppied_arr = arr;
+    cout << arr; //5.5 (Array.h)*/
+
     return 0;
 }
 
