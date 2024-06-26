@@ -13,7 +13,24 @@ void Sort(T* a, size_t size)
     sort(a, a + size);
 }
 
-struct Person { string name; int age; };
+class Person
+{
+public:
+    Person(string name, int age);
+    ~Person();
+    string name;
+    int age;
+};
+
+Person::Person(string name, int age)
+{
+    this->age = age;
+    this->name = name;
+}
+
+Person::~Person()
+{
+} 
 
 int main()
 {
@@ -52,7 +69,7 @@ int main()
     }
     catch (const string& e) { cout << e << endl; }*/
 
-    vector<Person> people = { {"Michal", 20}, {"Ann", 7}, {"Bob", 19}, {"Molly", 30}, {"Jett", 16} };
+    vector<Person> people { {"Michal", 20}, {"Ann", 7}, {"Bob", 19}, {"Molly", 30}, {"Jett", 16} };
     auto filter 
     { []( vector<Person>& input) 
         {
